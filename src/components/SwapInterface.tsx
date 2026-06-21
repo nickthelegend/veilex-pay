@@ -12,6 +12,10 @@ import {
 } from "lucide-react";
 import { useWallet } from "@/lib/solana/wallet/context";
 import { useBalance } from "@/lib/solana/hooks/use-balance";
+import { toast } from "sonner";
+import { submitOrder } from "@/lib/api";
+
+const PAIR = "dUSDC/HSK";
 
 export default function SwapInterface() {
   const { wallet } = useWallet();
@@ -41,13 +45,31 @@ export default function SwapInterface() {
   const handleSubmitOrder = async () => {
     if (!address || !amount || !price) return;
     setIsSubmitting(true);
-    // Mock order submission
-    setTimeout(() => {
-        setIsSubmitting(false);
-        setAmount("");
-        setPrice("");
-        alert("Private Order Submitted to HashKey Dark Pool");
-    }, 2000);
+    try {
+      const { order, fills } = await submitOrder({
+        pair: PAIR,
+        side,
+        price: Number(price),
+        size: Number(amount),
+        trader: address,
+      });
+      const filledQty = (fills || []).reduce((s: number, f: { size: number }) => s + f.size, 0);
+      if (filledQty > 0) {
+        toast.success(`Order matched`, {
+          description: `Filled ${filledQty} dUSDC across ${fills.length} fill(s)${order.status === "open" ? `, ${order.remaining} resting` : ""}.`,
+        });
+      } else {
+        toast.success("Order resting in the dark pool", {
+          description: `${side.toUpperCase()} ${amount} dUSDC @ ${price} HSK — waiting for a match.`,
+        });
+      }
+      setAmount("");
+      setPrice("");
+    } catch (e) {
+      toast.error("Order failed", { description: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isActionDisabled = isSubmitting || !amount || !price;
@@ -85,7 +107,7 @@ export default function SwapInterface() {
               gap: '8px',
             }}
           >
-            <TrendingUp size={16} /> Buy PUSD
+            <TrendingUp size={16} /> Buy dUSDC
           </button>
           <button 
             onClick={() => setSide("sell")}
@@ -105,7 +127,7 @@ export default function SwapInterface() {
               gap: '8px',
             }}
           >
-            <TrendingDown size={16} /> Sell PUSD
+            <TrendingDown size={16} /> Sell dUSDC
           </button>
         </div>
 
@@ -143,7 +165,7 @@ export default function SwapInterface() {
               }}
             />
             <div style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)' }}>
-               <span style={{ color: 'var(--accent)', fontSize: '14px', fontWeight: 800 }}>PUSD</span>
+               <span style={{ color: 'var(--accent)', fontSize: '14px', fontWeight: 800 }}>dUSDC</span>
             </div>
           </div>
         </div>
@@ -199,7 +221,7 @@ export default function SwapInterface() {
         <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(204, 255, 0, 0.05)', borderRadius: '16px', border: '1px solid var(--border)', display: 'flex', gap: '12px' }}>
           <EyeOff size={20} color="var(--primary)" />
           <p style={{ fontSize: '12px', color: 'var(--accent)', lineHeight: 1.5, margin: 0 }}>
-            Orders are encrypted using HashKey ZK-Token program logic. The matching engine settles trades privately without revealing price.
+            Limit orders rest in VeilPay&apos;s off-chain dark pool and match by price-time priority. The book stays hidden — no public mempool, no front-running.
           </p>
         </div>
       </div>
@@ -211,7 +233,7 @@ export default function SwapInterface() {
             <h3 className="label-caps" style={{ color: 'var(--accent)', margin: 0 }}>Privacy Vault</h3>
             <p style={{ fontSize: '24px', fontWeight: 800, color: 'var(--primary)', marginTop: '4px', margin: 0 }}>
               {vaultBalance}
-              <span style={{ fontSize: '14px', color: 'var(--accent)', marginLeft: '8px' }}>PUSD</span>
+              <span style={{ fontSize: '14px', color: 'var(--accent)', marginLeft: '8px' }}>dUSDC</span>
             </p>
           </div>
           <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(204,255,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

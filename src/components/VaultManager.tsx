@@ -40,7 +40,7 @@ export default function VaultManager() {
           <p className="label-caps" style={{ color: 'var(--accent)', margin: 0 }}>Vault Balance</p>
           <p style={{ fontSize: '20px', fontWeight: 800, color: 'var(--primary)', margin: 0 }}>
             {vaultBalance} 
-            <span style={{ fontSize: '14px', marginLeft: '6px', color: 'var(--accent)' }}>PUSD</span>
+            <span style={{ fontSize: '14px', marginLeft: '6px', color: 'var(--accent)' }}>dUSDC</span>
           </p>
         </div>
       </div>

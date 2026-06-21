@@ -80,3 +80,44 @@ export const STEALTH_REGISTRY_ABI = [
     anonymous: false,
   },
 ] as const;
+
+// dUSDC — Demo USD Coin (faucet-mintable ERC-20, 6 decimals). See veilex-contracts/src/tokens/DUSDC.sol
+export const DUSDC_ABI = [
+  { type: "function", name: "faucet", stateMutability: "nonpayable", inputs: [], outputs: [] },
+  {
+    type: "function",
+    name: "faucetCooldownRemaining",
+    stateMutability: "view",
+    inputs: [{ name: "user", type: "address" }],
+    outputs: [{ name: "", type: "uint256" }],
+  },
+  { type: "function", name: "decimals", stateMutability: "pure", inputs: [], outputs: [{ name: "", type: "uint8" }] },
+  {
+    type: "function",
+    name: "balanceOf",
+    stateMutability: "view",
+    inputs: [{ name: "account", type: "address" }],
+    outputs: [{ name: "", type: "uint256" }],
+  },
+  {
+    type: "function",
+    name: "allowance",
+    stateMutability: "view",
+    inputs: [
+      { name: "owner", type: "address" },
+      { name: "spender", type: "address" },
+    ],
+    outputs: [{ name: "", type: "uint256" }],
+  },
+  {
+    type: "function",
+    name: "approve",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "spender", type: "address" },
+      { name: "amount", type: "uint256" },
+    ],
+    outputs: [{ name: "", type: "bool" }],
+  },
+] as const;
+

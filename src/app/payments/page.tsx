@@ -6,18 +6,24 @@ import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import { useWallet } from "@/lib/solana/wallet/context";
 import { usePrivatePay } from "@/hooks/usePrivatePay";
+import { useDusdc } from "@/hooks/useDusdc";
 import { hskTxUrl } from "@/lib/evm";
+import { parseUnits } from "viem";
 import Link from "next/link";
+
+type Token = "HSK" | "dUSDC";
 
 export default function PaymentsPage() {
     const { wallet, status } = useWallet();
     const isConnected = status === "connected";
     const address = wallet?.account.address;
-    const { sendNative } = usePrivatePay();
+    const { sendNative, sendToken } = usePrivatePay();
+    const { approveIfNeeded, configured: dusdcConfigured } = useDusdc();
 
     // Send State
     const [recipient, setRecipient] = useState("");
     const [amount, setAmount] = useState("");
+    const [token, setToken] = useState<Token>("HSK");
     const [isSending, setIsSending] = useState(false);
     const [txHash, setTxHash] = useState<string | null>(null);
     const [stealthAddr, setStealthAddr] = useState<string | null>(null);
@@ -30,13 +36,19 @@ export default function PaymentsPage() {
         try {
             // Real shielded payment: derive a one-time stealth address from the
             // recipient's meta-address and pay it via the StealthRegistry.
-            const { hash, stealthAddress } = await sendNative(recipient, amount);
-            setTxHash(hash);
-            setStealthAddr(stealthAddress);
+            let result;
+            if (token === "dUSDC") {
+                await approveIfNeeded(parseUnits(amount, 6)); // registry pulls dUSDC
+                result = await sendToken(recipient, amount, 6);
+            } else {
+                result = await sendNative(recipient, amount);
+            }
+            setTxHash(result.hash);
+            setStealthAddr(result.stealthAddress);
             setRecipient("");
             setAmount("");
         } catch {
-            // toast handled inside usePrivatePay
+            // toast handled inside the hooks
         } finally {
             setIsSending(false);
         }
@@ -98,6 +110,30 @@ export default function PaymentsPage() {
 
                         <div style={{ marginBottom: '32px' }}>
                             <label className="label-caps" style={{ display: 'block', color: 'var(--accent)', marginBottom: '12px' }}>Amount to Shield</label>
+                            {/* Token toggle */}
+                            <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+                                {(["HSK", "dUSDC"] as const).map((t) => (
+                                    <button
+                                        key={t}
+                                        onClick={() => setToken(t)}
+                                        disabled={t === "dUSDC" && !dusdcConfigured}
+                                        style={{
+                                            flex: 1,
+                                            padding: '10px',
+                                            borderRadius: '12px',
+                                            border: '1px solid var(--border)',
+                                            background: token === t ? 'var(--foreground)' : 'transparent',
+                                            color: token === t ? '#fff' : 'var(--accent)',
+                                            fontWeight: 800,
+                                            fontSize: '13px',
+                                            cursor: t === "dUSDC" && !dusdcConfigured ? 'not-allowed' : 'pointer',
+                                            opacity: t === "dUSDC" && !dusdcConfigured ? 0.4 : 1,
+                                        }}
+                                    >
+                                        {t}
+                                    </button>
+                                ))}
+                            </div>
                             <div style={{ position: 'relative' }}>
                                 <input 
                                     type="number"
@@ -116,7 +152,7 @@ export default function PaymentsPage() {
                                         outline: 'none'
                                     }}
                                 />
-                                <span style={{ position: 'absolute', right: '24px', top: '50%', transform: 'translateY(-50%)', fontWeight: 800, color: 'var(--accent)' }}>HSK</span>
+                                <span style={{ position: 'absolute', right: '24px', top: '50%', transform: 'translateY(-50%)', fontWeight: 800, color: 'var(--accent)' }}>{token}</span>
                             </div>
                         </div>
 

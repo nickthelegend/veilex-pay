@@ -15,8 +15,8 @@ export default function SwapHistory() {
 
   // Mock data for swap history
   const orders = isConnected ? [
-    { id: "1", status: "filled", createdAt: Date.now() - 3600000, side: "buy", amount: "100.00", price: "125.40", pair: "PUSD  / HSK" },
-    { id: "2", status: "active", createdAt: Date.now() - 600000, side: "sell", amount: "50.00", price: "128.10", pair: "PUSD  / HSK" },
+    { id: "1", status: "filled", createdAt: Date.now() - 3600000, side: "buy", amount: "100.00", price: "125.40", pair: "dUSDC  / HSK" },
+    { id: "2", status: "active", createdAt: Date.now() - 600000, side: "sell", amount: "50.00", price: "128.10", pair: "dUSDC  / HSK" },
   ] : [];
 
   const getStatusIcon = (status: string) => {
@@ -71,7 +71,7 @@ export default function SwapHistory() {
                 </div>
 
                 <div style={{ textAlign: 'right' }}>
-                   <p style={{ fontSize: '14px', fontWeight: 800, color: 'var(--foreground)', margin: 0 }}>{o.amount} <span style={{ fontSize: '10px', color: 'var(--accent)' }}>PUSD</span></p>
+                   <p style={{ fontSize: '14px', fontWeight: 800, color: 'var(--foreground)', margin: 0 }}>{o.amount} <span style={{ fontSize: '10px', color: 'var(--accent)' }}>dUSDC</span></p>
                    <p style={{ fontSize: '12px', color: 'var(--accent)', margin: 0 }}>@ {o.price}</p>
                 </div>
               </div>

@@ -22,3 +22,4 @@ export const SCHEME_ID = 1n;
 export const PAYMENT_TOKEN = (process.env.NEXT_PUBLIC_PAYMENT_TOKEN_ADDRESS || ZERO) as `0x${string}`;
 
 export const isRegistryConfigured = () => CONTRACTS.StealthRegistry !== ZERO;
+export const isPaymentTokenConfigured = () => PAYMENT_TOKEN !== ZERO;
