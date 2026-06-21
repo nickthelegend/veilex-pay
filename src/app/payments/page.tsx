@@ -1,37 +1,43 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Send, QrCode, Shield, CheckCircle2, Loader2, ArrowLeft } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import { useWallet } from "@/lib/solana/wallet/context";
+import { usePrivatePay } from "@/hooks/usePrivatePay";
+import { hskTxUrl } from "@/lib/evm";
 import Link from "next/link";
 
 export default function PaymentsPage() {
     const { wallet, status } = useWallet();
     const isConnected = status === "connected";
     const address = wallet?.account.address;
-    
+    const { sendNative } = usePrivatePay();
+
     // Send State
     const [recipient, setRecipient] = useState("");
     const [amount, setAmount] = useState("");
     const [isSending, setIsSending] = useState(false);
     const [txHash, setTxHash] = useState<string | null>(null);
+    const [stealthAddr, setStealthAddr] = useState<string | null>(null);
 
     const handleSend = async () => {
         if (!address || !recipient || !amount) return;
         setIsSending(true);
+        setTxHash(null);
 
         try {
-            // Mocking payment dispatch for Solana
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            setTxHash("mock_solana_tx_hash_" + Math.random().toString(36).substring(7));
-            setIsSending(false);
+            // Real shielded payment: derive a one-time stealth address from the
+            // recipient's meta-address and pay it via the StealthRegistry.
+            const { hash, stealthAddress } = await sendNative(recipient, amount);
+            setTxHash(hash);
+            setStealthAddr(stealthAddress);
             setRecipient("");
             setAmount("");
-
-        } catch (err: any) {
-            alert(err.message || "Send failed");
+        } catch {
+            // toast handled inside usePrivatePay
+        } finally {
             setIsSending(false);
         }
     };
@@ -70,7 +76,7 @@ export default function PaymentsPage() {
                                 <textarea 
                                     value={recipient}
                                     onChange={(e) => setRecipient(e.target.value)}
-                                    placeholder="Enter Solana address..."
+                                    placeholder="Recipient HSK address or 66-byte stealth meta-address…"
                                     style={{
                                         width: '100%',
                                         height: '120px',
@@ -110,7 +116,7 @@ export default function PaymentsPage() {
                                         outline: 'none'
                                     }}
                                 />
-                                <span style={{ position: 'absolute', right: '24px', top: '50%', transform: 'translateY(-50%)', fontWeight: 800, color: 'var(--accent)' }}>SOL</span>
+                                <span style={{ position: 'absolute', right: '24px', top: '50%', transform: 'translateY(-50%)', fontWeight: 800, color: 'var(--accent)' }}>HSK</span>
                             </div>
                         </div>
 
@@ -144,14 +150,19 @@ export default function PaymentsPage() {
                         <div className="nested-card" style={{ marginTop: '24px', backgroundColor: 'rgba(34, 197, 94, 0.1)', borderColor: 'rgba(34, 197, 94, 0.2)', display: 'flex', gap: '16px', alignItems: 'center' }}>
                             <CheckCircle2 size={24} color="#22c55e" />
                             <div style={{ flex: 1 }}>
-                                <p style={{ fontSize: '14px', fontWeight: 800, color: '#22c55e', margin: 0 }}>Payment Dispatched</p>
-                                <a 
-                                    href={`https://explorer.solana.com/tx/${txHash}?cluster=devnet`}
+                                <p style={{ fontSize: '14px', fontWeight: 800, color: '#22c55e', margin: 0 }}>Shielded Payment Sent</p>
+                                {stealthAddr && (
+                                    <p style={{ fontSize: '11px', color: 'var(--accent)', margin: '4px 0', fontFamily: 'monospace', wordBreak: 'break-all' }}>
+                                        → stealth {stealthAddr.slice(0, 10)}…{stealthAddr.slice(-8)}
+                                    </p>
+                                )}
+                                <a
+                                    href={hskTxUrl(txHash)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     style={{ fontSize: '12px', color: 'var(--accent)', textDecoration: 'underline' }}
                                 >
-                                    Verify on Solana Explorer
+                                    Verify on HSK Explorer ↗
                                 </a>
                             </div>
                         </div>

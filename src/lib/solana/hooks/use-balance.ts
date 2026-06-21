@@ -1,62 +1,25 @@
 "use client";
 
-import { useEffect } from "react";
-import useSWR from "swr";
-import { type Address, type Lamports } from "@solana/kit";
-import { useCluster } from "@/components/solana/cluster-context";
-import { useSolanaClient } from "@/lib/solana/solana-client-context";
+// EVM balance hook (HashKey Chain) — kept at this path for backward-compat.
+// Returns the same shape the app already consumes: { lamports, balance, ... }
+// where `lamports` is the raw wei (bigint) and `balance` is HSK as a number.
+import { useBalance as useWagmiBalance } from "wagmi";
 
-const LAMPORTS_PER_SOL = 1_000_000_000n;
+export function useBalance(address?: string) {
+  const { data, isLoading, error, refetch } = useWagmiBalance({
+    address: address as `0x${string}` | undefined,
+    query: { enabled: !!address, refetchInterval: 60_000 },
+  });
 
-export function useBalance(address?: Address) {
-  const { cluster } = useCluster();
-  const client = useSolanaClient();
-
-  const { data, isLoading, error, mutate } = useSWR(
-    address ? (["balance", cluster, address] as const) : null,
-    async ([, , addr]) => {
-      const { value } = await client.rpc.getBalance(addr).send();
-      return value;
-    },
-    { refreshInterval: 60_000, revalidateOnFocus: true }
-  );
-
-  useEffect(() => {
-    if (!address) return;
-
-    const abortController = new AbortController();
-
-    const subscribe = async () => {
-      try {
-        const notifications = await client.rpcSubscriptions
-          .accountNotifications(address, { commitment: "confirmed" })
-          .subscribe({ abortSignal: abortController.signal });
-
-        for await (const notification of notifications) {
-          const lamports = notification.value.lamports;
-          mutate(lamports, { revalidate: false });
-        }
-      } catch {
-        // SWR polling and focus revalidation remain as fallback
-      }
-    };
-
-    void subscribe();
-
-    return () => {
-      abortController.abort();
-    };
-  }, [address, client, mutate]);
-
-  const lamports = (data ?? null) as Lamports | null;
-  const balance = lamports !== null ? Number(lamports) / Number(LAMPORTS_PER_SOL) : null;
+  const lamports = (data?.value ?? null) as bigint | null;
+  const balance = data ? Number(data.formatted) : null;
 
   return {
     lamports,
     balance,
     isLoading,
     error,
-    mutate,
-    refetch: mutate,
+    mutate: refetch,
+    refetch,
   };
 }

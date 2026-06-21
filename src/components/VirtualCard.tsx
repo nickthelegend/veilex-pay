@@ -46,12 +46,12 @@ export default function VirtualCard() {
                         </div>
                         <div>
                             <h3 style={{ fontSize: '20px', fontWeight: 800, color: 'white', margin: 0 }}>Obolus</h3>
-                            <p style={{ fontSize: '10px', color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>Private SOL Card</p>
+                            <p style={{ fontSize: '10px', color: 'var(--primary)', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>Private HSK Card</p>
                         </div>
                     </div>
                     <div style={{ padding: '8px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '10px', fontSize: '12px', fontWeight: 800, color: 'white', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <div style={{ width: '6px', height: '6px', background: 'var(--primary)', borderRadius: '50%' }} />
-                        Solana Devnet
+                        HashKey Testnet
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@ export default function VirtualCard() {
                         <h2 style={{ fontSize: '40px', fontWeight: 800, color: 'white', margin: 0 }}>
                             {isLoading ? "---" : balance?.toFixed(4)}
                         </h2>
-                        <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--primary)' }}>SOL</span>
+                        <span style={{ fontSize: '16px', fontWeight: 800, color: 'var(--primary)' }}>HSK</span>
                     </div>
                 </div>
 

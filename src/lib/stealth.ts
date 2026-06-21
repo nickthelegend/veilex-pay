@@ -2,9 +2,9 @@
 // Browser-compatible stealth address implementation
 // Uses @noble/curves and @noble/hashes - lightweight and modern
 
-import { secp256k1 } from "@noble/curves/secp256k1";
-import { keccak_256 } from "@noble/hashes/sha3";
-import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
+import { secp256k1 } from "@noble/curves/secp256k1.js";
+import { keccak_256 } from "@noble/hashes/sha3.js";
+import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 
 export interface StealthKeys {
   spendingPrivKey: string;   // 32-byte hex private key
@@ -16,8 +16,8 @@ export interface StealthKeys {
 
 // Generate a fresh stealth keypair for a new user
 export function generateStealthKeys(): StealthKeys {
-  const spendingPriv = secp256k1.utils.randomPrivateKey();
-  const viewingPriv = secp256k1.utils.randomPrivateKey();
+  const spendingPriv = secp256k1.utils.randomSecretKey();
+  const viewingPriv = secp256k1.utils.randomSecretKey();
 
   const spendingPubKey = secp256k1.getPublicKey(spendingPriv, true);
   const viewingPubKey = secp256k1.getPublicKey(viewingPriv, true);
@@ -27,7 +27,9 @@ export function generateStealthKeys(): StealthKeys {
     spendingPubKey: bytesToHex(spendingPubKey),
     viewingPrivKey: bytesToHex(viewingPriv),
     viewingPubKey: bytesToHex(viewingPubKey),
-    stealthMetaAddress: bytesToHex(spendingPubKey) + bytesToHex(viewingPubKey).slice(2),
+    // 66 bytes = spendingPubKey(33) ‖ viewingPubKey(33). noble's bytesToHex has
+    // no 0x prefix, so concatenate directly (no slice).
+    stealthMetaAddress: bytesToHex(spendingPubKey) + bytesToHex(viewingPubKey),
   };
 }
 
@@ -35,6 +37,7 @@ export interface StealthSendResult {
   stealthAddress: string;
   ephemeralPubKey: string;
   ephemeralPrivKey: string;
+  viewTag: string; // ERC-5564 view tag: first byte of the hashed shared secret (0x..)
 }
 
 // Compute one-time stealth address
@@ -43,7 +46,7 @@ export function generateStealthAddress(stealthMetaAddress: string): StealthSendR
   const viewingPubKeyHex = metaHex.slice(66, 132);
   const viewingPubKey = hexToBytes(viewingPubKeyHex);
 
-  const ephemeralPriv = secp256k1.utils.randomPrivateKey();
+  const ephemeralPriv = secp256k1.utils.randomSecretKey();
   const ephemeralPubKey = secp256k1.getPublicKey(ephemeralPriv, true);
 
   // ECDH: sharedSecret = ephemeralPriv * viewingPub
@@ -60,10 +63,14 @@ export function generateStealthAddress(stealthMetaAddress: string): StealthSendR
   const addressHash = keccak_256(stealthPubKey.slice(1));
   const stealthAddress = "0x" + bytesToHex(addressHash.slice(-20));
 
-  return { 
-    stealthAddress, 
-    ephemeralPubKey: bytesToHex(ephemeralPubKey), 
-    ephemeralPrivKey: bytesToHex(ephemeralPriv) 
+  // View tag = first byte of the hashed shared secret (ERC-5564 fast-scan hint).
+  const viewTag = "0x" + bytesToHex(hashedSecret.slice(0, 1));
+
+  return {
+    stealthAddress,
+    ephemeralPubKey: bytesToHex(ephemeralPubKey),
+    ephemeralPrivKey: bytesToHex(ephemeralPriv),
+    viewTag,
   };
 }
 
@@ -103,7 +110,8 @@ export function formatStealthMetaAddress(meta: string): string {
 }
 
 export function encodeStealthMetaAddress(spendingPubKey: string, viewingPubKey: string): string {
-  return spendingPubKey + viewingPubKey.slice(2);
+  // Both keys are bare (no 0x) compressed-pubkey hex → concatenate to 132 chars.
+  return spendingPubKey.replace(/^0x/, "") + viewingPubKey.replace(/^0x/, "");
 }
 
 export { bytesToHex as bytesToHex, hexToBytes as hexToBytes };

@@ -180,7 +180,7 @@ export default function LandingPage() {
           textTransform: 'uppercase',
           letterSpacing: '0.05em'
         }}>
-          Privacy Infrastructure for the Solana Ecosystem
+          Privacy Infrastructure for the HashKey Ecosystem
         </p>
       </div>
     </div>

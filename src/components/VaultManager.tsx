@@ -108,7 +108,7 @@ export default function VaultManager() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Wallet size={14} color="var(--accent)" />
           <p style={{ fontSize: '12px', color: 'var(--accent)', margin: 0 }}>
-            Wallet Balance: {balance?.toFixed(2) || "0.00"} SOL
+            Wallet Balance: {balance?.toFixed(2) || "0.00"} HSK
           </p>
         </div>
       </div>

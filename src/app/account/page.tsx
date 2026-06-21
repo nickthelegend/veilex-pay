@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ChevronRight, Bell, Shield, CreditCard, Settings, HelpCircle, LogOut } from "lucide-react";
 import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
+import StealthIdentityCard from "@/components/StealthIdentityCard";
 import { useWallet } from "@/lib/solana/wallet/context";
 
 export default function AccountPage() {
@@ -83,7 +84,7 @@ export default function AccountPage() {
                             </div>
                             <div style={{ textAlign: 'center' }}>
                                 <p style={{ fontSize: '12px', color: 'var(--accent)', marginBottom: '4px' }}>Network</p>
-                                <p style={{ fontWeight: 800, fontSize: '14px', margin: 0 }}>Solana</p>
+                                <p style={{ fontWeight: 800, fontSize: '14px', margin: 0 }}>HashKey</p>
                             </div>
                             <div style={{ textAlign: 'center' }}>
                                 <p style={{ fontSize: '12px', color: 'var(--accent)', marginBottom: '4px' }}>Privacy</p>
@@ -91,6 +92,9 @@ export default function AccountPage() {
                             </div>
                         </div>
                     </div>
+
+                    {/* Stealth identity (create + register) */}
+                    <StealthIdentityCard />
 
                     {/* Menu */}
                     <div style={{
@@ -171,7 +175,7 @@ export default function AccountPage() {
                     </button>
 
                     <p style={{ textAlign: 'center', fontSize: '12px', color: 'var(--accent)', marginTop: '32px' }}>
-                        VeilPay v1.0.0 • Connected via Solana
+                        VeilPay v1.0.0 • Connected via HashKey
                     </p>
                 </main>
             </PageTransition>

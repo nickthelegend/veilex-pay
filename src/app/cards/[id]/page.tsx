@@ -18,8 +18,8 @@ export default function CardDetailPage() {
 
     // Mock data for payment history
     const history = isConnected ? [
-        { id: "1", direction: "sent", amount: "5.00", currency: "SOL", timestamp: Date.now() - 86400000, status: "confirmed" },
-        { id: "2", direction: "receive", amount: "10.00", currency: "SOL", timestamp: Date.now() - 172800000, status: "confirmed" },
+        { id: "1", direction: "sent", amount: "5.00", currency: "HSK", timestamp: Date.now() - 86400000, status: "confirmed" },
+        { id: "2", direction: "receive", amount: "10.00", currency: "HSK", timestamp: Date.now() - 172800000, status: "confirmed" },
     ] : [];
 
     if (!isConnected) {
@@ -189,13 +189,13 @@ export default function CardDetailPage() {
                             <div className="main-card" style={{ padding: '16px' }}>
                                 <p className="label-caps" style={{ color: 'var(--accent)', marginBottom: '4px', margin: 0 }}>Total Payouts</p>
                                 <p style={{ fontSize: '20px', fontWeight: 800, color: 'var(--foreground)', margin: 0 }}>
-                                    {showBalance ? `${totalSpent.toFixed(2)} SOL` : "****"}
+                                    {showBalance ? `${totalSpent.toFixed(2)} HSK` : "****"}
                                 </p>
                             </div>
                             <div className="main-card" style={{ padding: '16px' }}>
                                 <p className="label-caps" style={{ color: 'var(--primary)', marginBottom: '4px', margin: 0 }}>Total Yield</p>
                                 <p style={{ fontSize: '20px', fontWeight: 800, color: 'var(--primary)', margin: 0 }}>
-                                    {showBalance ? `${totalReceived.toFixed(2)} SOL` : "****"}
+                                    {showBalance ? `${totalReceived.toFixed(2)} HSK` : "****"}
                                 </p>
                             </div>
                         </div>

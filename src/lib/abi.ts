@@ -1,49 +1,82 @@
+// ABI for the Veilex StealthRegistry (ERC-5564) deployed on HashKey Chain.
+// Mirrors ../veilex-contracts/src/privacy/StealthRegistry.sol.
 export const STEALTH_REGISTRY_ABI = [
   {
-    "inputs": [
-      { "internalType": "bytes", "name": "stealthMetaAddress", "type": "bytes" }
+    type: "function",
+    name: "registerStealthMetaAddress",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "schemeId", type: "uint256" },
+      { name: "stealthMetaAddress", type: "bytes" },
     ],
-    "name": "registerStealthMetaAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    outputs: [],
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" }
+    type: "function",
+    name: "getStealthMetaAddress",
+    stateMutability: "view",
+    inputs: [
+      { name: "user", type: "address" },
+      { name: "schemeId", type: "uint256" },
     ],
-    "name": "getStealthMetaAddress",
-    "outputs": [
-      { "internalType": "bytes", "name": "", "type": "bytes" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  }
-];
-
-export const STEALTH_ANNOUNCER_ABI = [
-  {
-    "inputs": [
-      { "internalType": "address", "name": "stealthAddress", "type": "address" },
-      { "internalType": "bytes", "name": "ephemeralPubKey", "type": "bytes" },
-      { "internalType": "bytes", "name": "metadata", "type": "bytes" }
-    ],
-    "name": "sendNative",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
+    outputs: [{ name: "", type: "bytes" }],
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "token", "type": "address" },
-      { "internalType": "address", "name": "stealthAddress", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "bytes", "name": "ephemeralPubKey", "type": "bytes" },
-      { "internalType": "bytes", "name": "metadata", "type": "bytes" }
+    type: "function",
+    name: "announce",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "schemeId", type: "uint256" },
+      { name: "stealthAddress", type: "address" },
+      { name: "ephemeralPubKey", type: "bytes" },
+      { name: "metadata", type: "bytes" },
     ],
-    "name": "sendERC20",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-];
+    outputs: [],
+  },
+  {
+    type: "function",
+    name: "privateTransfer",
+    stateMutability: "nonpayable",
+    inputs: [
+      { name: "token", type: "address" },
+      { name: "stealthAddress", type: "address" },
+      { name: "amount", type: "uint256" },
+      { name: "ephemeralPubKey", type: "bytes" },
+      { name: "viewTag", type: "bytes1" },
+    ],
+    outputs: [],
+  },
+  {
+    type: "function",
+    name: "privateTransferNative",
+    stateMutability: "payable",
+    inputs: [
+      { name: "stealthAddress", type: "address" },
+      { name: "ephemeralPubKey", type: "bytes" },
+      { name: "viewTag", type: "bytes1" },
+    ],
+    outputs: [],
+  },
+  {
+    type: "event",
+    name: "Announcement",
+    inputs: [
+      { name: "schemeId", type: "uint256", indexed: true },
+      { name: "stealthAddress", type: "address", indexed: true },
+      { name: "caller", type: "address", indexed: true },
+      { name: "ephemeralPubKey", type: "bytes", indexed: false },
+      { name: "metadata", type: "bytes", indexed: false },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "StealthMetaAddressSet",
+    inputs: [
+      { name: "registrant", type: "address", indexed: true },
+      { name: "schemeId", type: "uint256", indexed: true },
+      { name: "stealthMetaAddress", type: "bytes", indexed: false },
+    ],
+    anonymous: false,
+  },
+] as const;

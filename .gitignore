@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+.next/
+node_modules/
+.env
+.env.local

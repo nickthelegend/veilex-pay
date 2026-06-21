@@ -24,7 +24,7 @@ export default function AIInsights() {
       setData({
         score: 88,
         insights: [
-            "Your stealth address rotation is optimal for Solana mainnet.",
+            "Your stealth address rotation is optimal for HashKey mainnet.",
             "Consider enabling automatic round-ups for SSP yield.",
             "Wallet hygiene looks good: no public transactions detected."
         ]
@@ -135,7 +135,7 @@ export default function AIInsights() {
               {data?.score && data.score > 80 ? "Premium Stealth status" : "Analyzing history..."}
             </p>
             <p style={{ fontSize: '12px', color: 'var(--accent)', lineHeight: 1.5, margin: 0 }}>
-                Your Solana footprint is being analyzed for privacy leaks.
+                Your HashKey footprint is being analyzed for privacy leaks.
             </p>
           </div>
         </div>

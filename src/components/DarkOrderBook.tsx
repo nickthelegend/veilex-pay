@@ -72,7 +72,7 @@ export default function DarkOrderBook() {
                       <span style={{ fontSize: '10px', color: 'var(--accent)', marginLeft: '4px' }}>PUSD</span>
                    </p>
                    <p style={{ fontSize: '12px', color: 'var(--primary)', fontWeight: 800, margin: 0 }}>
-                      @ {s.settlementPrice} SOL
+                      @ {s.settlementPrice} HSK
                    </p>
                 </div>
               </div>
@@ -83,7 +83,7 @@ export default function DarkOrderBook() {
                     <span style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase' }}>ZK Verified</span>
                  </div>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--accent)', fontSize: '10px', fontWeight: 800, textTransform: 'uppercase' }}>
-                   Solana Explorer <ArrowUpRight size={10} />
+                   HashKey Explorer <ArrowUpRight size={10} />
                  </div>
               </div>
             </div>

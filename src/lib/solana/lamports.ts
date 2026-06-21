@@ -1,20 +1,20 @@
-import { lamports, type Lamports } from "@solana/kit";
+// EVM (HashKey Chain) amount helpers. Kept at this path for backward-compat;
+// names retain the original "sol/lamports" wording but operate on 18-decimal
+// HSK wei. 1 HSK = 10^18 wei.
+import { formatUnits, parseUnits } from "viem";
 
-const LAMPORTS_PER_SOL = 1_000_000_000n;
+export type Lamports = bigint;
 
+/** HSK (float) → wei (bigint). */
 export function lamportsFromSol(sol: number): Lamports {
-  return lamports(BigInt(Math.round(sol * Number(LAMPORTS_PER_SOL))));
+  return parseUnits(String(sol), 18);
 }
 
-export function lamportsToSolString(amount: Lamports, maxDecimals = 2): string {
-  const whole = amount / LAMPORTS_PER_SOL;
-  const fractional = amount % LAMPORTS_PER_SOL;
-
-  if (fractional === 0n) return whole.toString();
-
-  const decimals = fractional.toString().padStart(9, "0").slice(0, maxDecimals);
-
-  if (decimals.replace(/0+$/, "") === "") return whole.toString();
-
-  return `${whole}.${decimals.replace(/0+$/, "")}`;
+/** wei (bigint) → human HSK string, trimmed to maxDecimals. */
+export function lamportsToSolString(amount: Lamports, maxDecimals = 4): string {
+  const full = formatUnits(amount, 18);
+  if (!full.includes(".")) return full;
+  const [whole, frac] = full.split(".");
+  const trimmed = frac.slice(0, maxDecimals).replace(/0+$/, "");
+  return trimmed ? `${whole}.${trimmed}` : whole;
 }

@@ -54,10 +54,10 @@ export default function FaucetPage() {
                             <Coins size={40} color="var(--primary)" />
                         </div>
                         <h1 style={{ fontSize: '28px', fontWeight: 800, color: 'var(--foreground)', marginBottom: '12px', margin: 0 }}>
-                            SOL Faucet
+                            HSK Faucet
                         </h1>
                         <p style={{ color: 'var(--accent)', fontSize: '15px', lineHeight: 1.5, maxWidth: '280px', margin: '0 auto' }}>
-                            Get testnet SOL to explore Obolus privacy features.
+                            Get testnet HSK to explore Obolus privacy features.
                         </p>
                     </div>
 
@@ -77,7 +77,7 @@ export default function FaucetPage() {
                                     <p className="label-caps" style={{ color: 'var(--accent)', margin: 0 }}>Your Balance</p>
                                     <p style={{ fontSize: '20px', fontWeight: 800, color: 'var(--foreground)', margin: 0 }}>
                                         {balance ? balance.toFixed(2) : "0.00"}
-                                        <span style={{ fontSize: '14px', color: 'var(--accent)', marginLeft: '6px' }}>SOL</span>
+                                        <span style={{ fontSize: '14px', color: 'var(--accent)', marginLeft: '6px' }}>HSK</span>
                                     </p>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@ export default function FaucetPage() {
                                 </>
                             ) : (
                                 <>
-                                    <span>Request SOL</span>
+                                    <span>Request HSK</span>
                                     <ArrowRight size={20} />
                                 </>
                             )}
@@ -153,7 +153,7 @@ export default function FaucetPage() {
                                 border: '1px solid rgba(74, 222, 128, 0.2)',
                             }}>
                                 <CheckCircle2 size={20} color="#4ade80" />
-                                <p style={{ fontSize: '14px', color: '#4ade80', fontWeight: 800, margin: 0 }}>Successfully requested {mintAmount} SOL!</p>
+                                <p style={{ fontSize: '14px', color: '#4ade80', fontWeight: 800, margin: 0 }}>Successfully requested {mintAmount} HSK!</p>
                             </div>
                         )}
                     </div>
@@ -166,7 +166,7 @@ export default function FaucetPage() {
                         border: '1px solid var(--border)' 
                     }}>
                         <p style={{ fontSize: '13px', color: 'var(--accent)', lineHeight: 1.6, margin: 0 }}>
-                            This SOL is exclusively for use on the **Solana Devnet**. It holds no real monetary value.
+                            This HSK is exclusively for use on the **HashKey Testnet**. It holds no real monetary value.
                         </p>
                     </div>
                 </div>

@@ -13,10 +13,10 @@ export default function HistoryPage() {
     
     // Mock data for history
     const history = isConnected ? [
-        { id: "1", type: "send", amount: "12.50", currency: "SOL", timestamp: Date.now() - 3600000, status: "Confirmed", category: "send" },
-        { id: "2", type: "receive", amount: "45.00", currency: "SOL", timestamp: Date.now() - 86400000, status: "Confirmed", category: "receive" },
-        { id: "3", type: "send", amount: "2.40", currency: "SOL", timestamp: Date.now() - 172800000, status: "Confirmed", category: "food" },
-        { id: "4", type: "send", amount: "88.00", currency: "SOL", timestamp: Date.now() - 259200000, status: "Confirmed", category: "travel" },
+        { id: "1", type: "send", amount: "12.50", currency: "HSK", timestamp: Date.now() - 3600000, status: "Confirmed", category: "send" },
+        { id: "2", type: "receive", amount: "45.00", currency: "HSK", timestamp: Date.now() - 86400000, status: "Confirmed", category: "receive" },
+        { id: "3", type: "send", amount: "2.40", currency: "HSK", timestamp: Date.now() - 172800000, status: "Confirmed", category: "food" },
+        { id: "4", type: "send", amount: "88.00", currency: "HSK", timestamp: Date.now() - 259200000, status: "Confirmed", category: "travel" },
     ] : [];
 
     if (!isConnected) {
@@ -101,7 +101,7 @@ export default function HistoryPage() {
                         {history.length === 0 ? (
                             <div className="main-card" style={{ textAlign: 'center', padding: '60px 20px' }}>
                                 <p style={{ fontWeight: 800, fontSize: '18px', margin: 0 }}>No records found</p>
-                                <p style={{ fontSize: '14px', color: 'var(--accent)', marginTop: '8px', margin: 0 }}>Your Solana transaction history will appear here.</p>
+                                <p style={{ fontSize: '14px', color: 'var(--accent)', marginTop: '8px', margin: 0 }}>Your HashKey transaction history will appear here.</p>
                             </div>
                         ) : (
                             history.map((tx) => (
@@ -129,7 +129,7 @@ export default function HistoryPage() {
 
                                     <div style={{ textAlign: 'right' }}>
                                         <p style={{ fontWeight: 800, color: tx.type === "send" ? "var(--foreground)" : "var(--primary)", margin: 0 }}>
-                                            {tx.type === "send" ? "-" : "+"}{tx.amount} SOL
+                                            {tx.type === "send" ? "-" : "+"}{tx.amount} HSK
                                         </p>
                                         <p style={{ fontSize: '12px', color: 'var(--accent)', margin: 0 }}>{tx.status}</p>
                                     </div>

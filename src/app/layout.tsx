@@ -12,13 +12,13 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "VeilPay - Smart Private Payments & Micro-Investing",
-  description: "Round up your spending and invest in your future privately. The world's first stealth DeFi micro-investment platform on Conflux.",
-  keywords: ["defi", "privacy", "stealth address", "conflux", "crypto", "investing", "round-up", "payments"],
+  title: "VeilPay - True Private Payments on HashKey Chain",
+  description: "Send and receive shielded payments using ERC-5564 stealth addresses on HashKey Chain. Your main wallet never appears on the transaction; share a view key for compliance.",
+  keywords: ["defi", "privacy", "stealth address", "ERC-5564", "HashKey Chain", "HSK", "private payments", "view key"],
   authors: [{ name: "VeilPay" }],
   openGraph: {
-    title: "VeilPay - Smart Private Payments",
-    description: "Secure, private, and automated micro-investments.",
+    title: "VeilPay - True Private Payments",
+    description: "Shielded stealth-address payments on HashKey Chain.",
     type: "website",
   },
 };

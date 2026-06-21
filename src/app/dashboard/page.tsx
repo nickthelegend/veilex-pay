@@ -17,7 +17,7 @@ export default function DashboardPage() {
     
     const [activeCategory, setActiveCategory] = useState("All");
     
-    // Solana balance hook
+    // HashKey balance hook
     const { lamports } = useBalance(address);
 
     const totalBalance = lamports !== null ? parseFloat(lamportsToSolString(lamports)) : 12450.50; // Mock if not connected for demo

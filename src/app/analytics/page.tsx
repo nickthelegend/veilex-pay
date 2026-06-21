@@ -13,7 +13,7 @@ export default function AnalyticsPage() {
 
     // Mock data for analytics
     const liveInvestments = [
-        { id: 1, name: "Solana (SOL)", symbol: "SOL", type: "crypto", currentValue: 12.5, percentageChange: 8.24 },
+        { id: 1, name: "HashKey (HSK)", symbol: "HSK", type: "crypto", currentValue: 12.5, percentageChange: 8.24 },
         { id: 2, name: "Stealth Savings", symbol: "SSP", type: "stock", currentValue: 1.2, percentageChange: 12.5 },
     ];
 
@@ -69,7 +69,7 @@ export default function AnalyticsPage() {
                                     color: 'var(--foreground)',
                                     fontVariantNumeric: 'tabular-nums'
                                 }}>
-                                    {totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} SOL
+                                    {totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} HSK
                                 </span>
                             </div>
                         </div>
@@ -113,7 +113,7 @@ export default function AnalyticsPage() {
 
                                     <div style={{ textAlign: 'right' }}>
                                         <p style={{ fontWeight: 800, color: 'var(--foreground)', margin: 0 }}>
-                                            {inv.currentValue.toFixed(2)} SOL
+                                            {inv.currentValue.toFixed(2)} HSK
                                         </p>
                                         <p style={{ fontSize: '12px', color: 'var(--primary)', fontWeight: 700, margin: 0 }}>
                                             +{inv.percentageChange}%

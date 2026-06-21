@@ -15,8 +15,8 @@ export default function SwapHistory() {
 
   // Mock data for swap history
   const orders = isConnected ? [
-    { id: "1", status: "filled", createdAt: Date.now() - 3600000, side: "buy", amount: "100.00", price: "125.40", pair: "PUSD / SOL" },
-    { id: "2", status: "active", createdAt: Date.now() - 600000, side: "sell", amount: "50.00", price: "128.10", pair: "PUSD / SOL" },
+    { id: "1", status: "filled", createdAt: Date.now() - 3600000, side: "buy", amount: "100.00", price: "125.40", pair: "PUSD  / HSK" },
+    { id: "2", status: "active", createdAt: Date.now() - 600000, side: "sell", amount: "50.00", price: "128.10", pair: "PUSD  / HSK" },
   ] : [];
 
   const getStatusIcon = (status: string) => {

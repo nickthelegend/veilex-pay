@@ -46,7 +46,7 @@ export default function SwapInterface() {
         setIsSubmitting(false);
         setAmount("");
         setPrice("");
-        alert("Private Order Submitted to Solana Dark Pool");
+        alert("Private Order Submitted to HashKey Dark Pool");
     }, 2000);
   };
 
@@ -119,7 +119,7 @@ export default function SwapInterface() {
                 onClick={() => setAmount(balance?.toString() || "0")}
                 style={{ fontSize: '12px', color: 'var(--accent)', cursor: 'pointer', fontWeight: 600 }}
                >
-                 {balance ? balance.toFixed(2) : "0.00"} SOL
+                 {balance ? balance.toFixed(2) : "0.00"} HSK
                </span>
             </div>
           </div>
@@ -149,7 +149,7 @@ export default function SwapInterface() {
         </div>
 
         <div style={{ marginBottom: '32px' }}>
-          <label className="label-caps" style={{ display: 'block', color: 'var(--accent)', marginBottom: '8px' }}>Limit Price (SOL)</label>
+          <label className="label-caps" style={{ display: 'block', color: 'var(--accent)', marginBottom: '8px' }}>Limit Price (HSK)</label>
           <div style={{ position: 'relative' }}>
             <input 
               type="number"
@@ -168,7 +168,7 @@ export default function SwapInterface() {
                 outline: 'none'
               }}
             />
-            <span style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', color: 'var(--accent)', fontSize: '14px', fontWeight: 800 }}>SOL</span>
+            <span style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)', color: 'var(--accent)', fontSize: '14px', fontWeight: 800 }}>HSK</span>
           </div>
         </div>
 
@@ -199,7 +199,7 @@ export default function SwapInterface() {
         <div style={{ marginTop: '20px', padding: '16px', background: 'rgba(204, 255, 0, 0.05)', borderRadius: '16px', border: '1px solid var(--border)', display: 'flex', gap: '12px' }}>
           <EyeOff size={20} color="var(--primary)" />
           <p style={{ fontSize: '12px', color: 'var(--accent)', lineHeight: 1.5, margin: 0 }}>
-            Orders are encrypted using Solana ZK-Token program logic. The matching engine settles trades privately without revealing price.
+            Orders are encrypted using HashKey ZK-Token program logic. The matching engine settles trades privately without revealing price.
           </p>
         </div>
       </div>
@@ -259,7 +259,7 @@ export default function SwapInterface() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Wallet size={14} color="var(--accent)" />
           <p style={{ fontSize: '12px', color: 'var(--accent)', margin: 0 }}>
-            Public Balance: {balance?.toFixed(2) || "0.00"} SOL
+            Public Balance: {balance?.toFixed(2) || "0.00"} HSK
           </p>
         </div>
       </div>

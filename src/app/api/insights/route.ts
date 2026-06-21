@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     const systemPrompt = `You are a Web3 Privacy Expert for VeilPay. 
     Analyze the user's transaction history and provide a privacy score (0-100) and 3 specific, actionable insights.
-    VeilPay uses EIP-5564 stealth addresses on Conflux eSpace.
+    VeilPay uses EIP-5564 stealth addresses on HashKey Chain.
     History: ${JSON.stringify(history)}
     Profile: ${JSON.stringify(profile)}
     Return ONLY a JSON object: { "score": number, "insights": string[] }`;
