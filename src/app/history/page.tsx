@@ -58,7 +58,7 @@ export default function HistoryPage() {
                     <div style={{ marginTop: '20px', display: 'flex', gap: '12px', marginBottom: '24px' }}>
                         <div style={{
                             flex: 1,
-                            background: '#ffffff',
+                            background: 'rgba(255,255,255,0.06)',
                             borderRadius: '16px',
                             display: 'flex',
                             alignItems: 'center',
@@ -84,7 +84,7 @@ export default function HistoryPage() {
                         <button style={{
                             width: '48px',
                             height: '48px',
-                            background: '#ffffff',
+                            background: 'rgba(255,255,255,0.06)',
                             borderRadius: '16px',
                             display: 'flex',
                             alignItems: 'center',

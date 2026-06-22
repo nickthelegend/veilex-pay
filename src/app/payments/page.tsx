@@ -58,7 +58,7 @@ export default function PaymentsPage() {
         return (
             <div className="mobile-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
                 <div className="main-card" style={{ textAlign: 'center', padding: '48px 32px' }}>
-                    <Shield size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.5 }} />
+                    <Shield size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.9 }} />
                     <h2 className="subheading" style={{ marginBottom: '12px' }}>Private Vault Locked</h2>
                     <p style={{ color: 'var(--accent)', marginBottom: '30px' }}>Connect your wallet to send shielded payments.</p>
                 </div>
@@ -123,7 +123,7 @@ export default function PaymentsPage() {
                                             borderRadius: '12px',
                                             border: '1px solid var(--border)',
                                             background: token === t ? 'var(--foreground)' : 'transparent',
-                                            color: token === t ? '#fff' : 'var(--accent)',
+                                            color: token === t ? 'var(--background)' : 'var(--accent)',
                                             fontWeight: 800,
                                             fontSize: '13px',
                                             cursor: t === "dUSDC" && !dusdcConfigured ? 'not-allowed' : 'pointer',
@@ -164,7 +164,7 @@ export default function PaymentsPage() {
                                 padding: '20px',
                                 borderRadius: '24px',
                                 background: 'var(--foreground)',
-                                color: '#ffffff',
+                                color: 'var(--background)',
                                 border: 'none',
                                 fontWeight: 800,
                                 fontSize: '16px',

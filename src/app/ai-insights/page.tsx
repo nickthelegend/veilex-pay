@@ -14,7 +14,7 @@ export default function AIInsightsPage() {
         return (
             <div className="mobile-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
                 <div className="main-card" style={{ textAlign: 'center', padding: '48px 32px' }}>
-                    <Sparkles size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.2 }} />
+                    <Sparkles size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.9 }} />
                     <h2 className="subheading" style={{ marginBottom: '12px' }}>AI Analysis Locked</h2>
                     <p style={{ color: 'var(--accent)', marginBottom: '30px' }}>Connect your wallet to analyze your privacy score and get AI-driven insights.</p>
                 </div>

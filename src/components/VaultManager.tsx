@@ -54,7 +54,7 @@ export default function VaultManager() {
             onChange={(e) => setDepositAmount(e.target.value)}
             style={{
                 width: '100%',
-                background: '#ffffff',
+                background: 'rgba(255,255,255,0.06)',
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 padding: '16px',

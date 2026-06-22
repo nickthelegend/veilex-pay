@@ -7,6 +7,7 @@ import MobileNav from "@/components/MobileNav";
 import PageTransition from "@/components/PageTransition";
 import { Shield } from "lucide-react";
 import { useWallet } from "@/lib/solana/wallet/context";
+import { WalletButton } from "@/components/solana/wallet-button";
 
 export default function SwapPage() {
     const { status } = useWallet();
@@ -15,10 +16,15 @@ export default function SwapPage() {
     if (!isConnected) {
         return (
             <div className="mobile-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                <div className="main-card" style={{ textAlign: 'center', padding: '48px 32px' }}>
-                    <Shield size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.2 }} />
-                    <h2 className="subheading" style={{ marginBottom: '12px' }}>Private Swap Locked</h2>
-                    <p style={{ color: 'var(--accent)', textAlign: 'center', marginBottom: '30px' }}>Connect your wallet to trade privately in the Dark Pool.</p>
+                <div className="main-card" style={{ textAlign: 'center', padding: '44px 32px', maxWidth: '360px' }}>
+                    <div style={{ width: '72px', height: '72px', margin: '0 auto 22px', borderRadius: '22px', background: 'rgba(204,255,0,0.12)', border: '1px solid rgba(204,255,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 44px rgba(204,255,0,0.18)' }}>
+                        <Shield size={34} color="var(--primary)" />
+                    </div>
+                    <h2 className="subheading" style={{ marginBottom: '8px' }}>Private Swap Locked</h2>
+                    <p style={{ color: 'var(--accent)', textAlign: 'center', marginBottom: '26px', fontSize: '14px', lineHeight: 1.5 }}>Connect your wallet to trade privately in the Dark Pool.</p>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <WalletButton />
+                    </div>
                 </div>
                 <MobileNav />
             </div>

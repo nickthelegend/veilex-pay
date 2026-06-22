@@ -83,7 +83,7 @@ export default function SwapInterface() {
         {/* Toggle Selector */}
         <div style={{ 
           display: 'flex', 
-          background: '#ffffff', 
+          background: 'rgba(255,255,255,0.06)', 
           padding: '6px', 
           borderRadius: '24px', 
           marginBottom: '24px', 
@@ -97,7 +97,7 @@ export default function SwapInterface() {
               borderRadius: '20px',
               border: 'none',
               background: side === "buy" ? 'var(--foreground)' : 'transparent',
-              color: side === "buy" ? '#ffffff' : 'var(--accent)',
+              color: side === "buy" ? 'var(--background)' : 'var(--accent)',
               fontWeight: 800,
               fontSize: '14px',
               cursor: 'pointer',
@@ -117,7 +117,7 @@ export default function SwapInterface() {
               borderRadius: '20px',
               border: 'none',
               background: side === "sell" ? 'var(--foreground)' : 'transparent',
-              color: side === "sell" ? '#ffffff' : 'var(--accent)',
+              color: side === "sell" ? 'var(--background)' : 'var(--accent)',
               fontWeight: 800,
               fontSize: '14px',
               cursor: 'pointer',
@@ -153,7 +153,7 @@ export default function SwapInterface() {
               placeholder="0.00"
               style={{
                 width: '100%',
-                background: '#ffffff',
+                background: 'rgba(255,255,255,0.06)',
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 padding: '20px',
@@ -180,7 +180,7 @@ export default function SwapInterface() {
               placeholder="0.00"
               style={{
                 width: '100%',
-                background: '#ffffff',
+                background: 'rgba(255,255,255,0.06)',
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 padding: '20px',
@@ -249,7 +249,7 @@ export default function SwapInterface() {
             placeholder="0.00"
             style={{
               flex: 1,
-              background: '#ffffff',
+              background: 'rgba(255,255,255,0.06)',
               border: '1px solid var(--border)',
               borderRadius: '12px',
               padding: '14px',
@@ -266,7 +266,7 @@ export default function SwapInterface() {
               padding: '0 20px',
               borderRadius: '12px',
               background: 'var(--foreground)',
-              color: '#ffffff',
+              color: 'var(--background)',
               border: 'none',
               fontWeight: 800,
               fontSize: '14px',

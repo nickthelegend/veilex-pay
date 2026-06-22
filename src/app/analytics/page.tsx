@@ -130,7 +130,7 @@ export default function AnalyticsPage() {
                             <button style={{
                                 width: '100%',
                                 padding: '20px',
-                                background: '#ffffff',
+                                background: 'rgba(255,255,255,0.06)',
                                 border: '1px solid var(--border)',
                                 borderRadius: '24px',
                                 color: 'var(--primary)',

@@ -138,7 +138,7 @@ export default function DashboardPage() {
                         <h2 className="subheading" style={{ marginBottom: '16px' }}>Stealth Identity</h2>
                         <div className="nested-card" style={{ 
                             background: 'var(--foreground)', 
-                            color: '#ffffff',
+                            color: 'var(--background)',
                             padding: '24px'
                         }}>
                              <span className="label-caps" style={{ color: 'var(--accent)', opacity: 0.7 }}>Meta-Address Status</span>

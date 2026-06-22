@@ -28,11 +28,27 @@
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #eeebe3;
-  --card: #171e19;
-  --border: rgba(183, 198, 194, 0.15);
+  --background: #07090a;            /* deep ink */
+  --foreground: #f3f6f1;            /* crisp near-white */
+  --card: #141a1e;                  /* elevated surface — clearly above bg */
+  --card-foreground: #f3f6f1;
+  --accent: #aab8b3;               /* brighter sage so secondary text reads */
+  --border: rgba(204, 255, 0, 0.14); /* lime-tinted hairline, actually visible */
+  /* On dark, elevation = a soft drop + a lit top edge (black shadows are invisible here) */
+  --shadow-subtle:
+    0 18px 48px -18px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
+/* Cards get a subtle top sheen + lime edge on dark so they pop off the background */
+.dark .main-card,
+.dark .nested-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0) 42%),
+    var(--card);
+  border-color: rgba(204, 255, 0, 0.12);
+}
+.dark .main-card:hover { border-color: rgba(204, 255, 0, 0.22); }
 
 * {
   margin: 0;

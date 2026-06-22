@@ -98,7 +98,7 @@ export default function AccountPage() {
 
                     {/* Menu */}
                     <div style={{
-                        background: '#ffffff',
+                        background: 'rgba(255,255,255,0.06)',
                         borderRadius: '24px',
                         overflow: 'hidden',
                         marginBottom: '24px',

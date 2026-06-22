@@ -26,7 +26,7 @@ export default function InboxPage() {
     if (!isConnected) {
         return (
             <div className="mobile-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                <Shield size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.2 }} />
+                <Shield size={64} color="var(--primary)" style={{ marginBottom: '24px', opacity: 0.9 }} />
                 <h2 className="subheading" style={{ marginBottom: '12px' }}>Vault Locked</h2>
                 <p style={{ color: 'var(--accent)', textAlign: 'center', marginBottom: '30px' }}>Connect your wallet to access your private inbox.</p>
                 <MobileNav />
@@ -66,7 +66,7 @@ export default function InboxPage() {
                                 placeholder="Leave blank to use your saved stealth identity"
                                 style={{
                                     width: '100%',
-                                    background: '#ffffff',
+                                    background: 'rgba(255,255,255,0.06)',
                                     border: '1px solid var(--border)',
                                     borderRadius: '16px',
                                     padding: '16px',
@@ -87,7 +87,7 @@ export default function InboxPage() {
                                 padding: '20px',
                                 borderRadius: '24px',
                                 background: 'var(--foreground)',
-                                color: '#ffffff',
+                                color: 'var(--background)',
                                 border: 'none',
                                 fontWeight: 800,
                                 fontSize: '16px',
