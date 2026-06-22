@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Layers, FileCheck, Inbox } from "lucide-react";
+import { Layers, FileCheck, Inbox, ShieldCheck } from "lucide-react";
 import { getFills, getBook } from "@/lib/api";
 
 const PAIR = "dUSDC/HSK";
@@ -50,12 +50,19 @@ export default function DarkOrderBook() {
         </div>
       </div>
 
+      <div className="main-card" style={{ padding: "12px 14px", display: "flex", gap: "10px", alignItems: "flex-start" }}>
+        <ShieldCheck size={18} color="var(--primary)" style={{ marginTop: 2, flexShrink: 0 }} />
+        <p style={{ fontSize: "11px", color: "var(--accent)", lineHeight: 1.5, margin: 0 }}>
+          Resting orders are <strong style={{ color: "var(--foreground)" }}>shielded</strong> — prices and sizes are never shown publicly. Only executed matches appear below, after they settle.
+        </p>
+      </div>
+
       <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
         {fills.length === 0 && (
           <div className="main-card" style={{ padding: "40px 20px", textAlign: "center" }}>
             <Inbox size={40} color="var(--accent)" style={{ opacity: 0.2, marginBottom: "12px" }} />
             <p style={{ fontWeight: 800, margin: 0 }}>No matches yet</p>
-            <p style={{ fontSize: "12px", color: "var(--accent)", marginTop: "6px" }}>Submit a limit order to seed the dark pool.</p>
+            <p style={{ fontSize: "12px", color: "var(--accent)", marginTop: "6px" }}>Submit a private order to seed the dark pool.</p>
           </div>
         )}
 
@@ -109,7 +116,7 @@ export default function DarkOrderBook() {
           <p style={{ fontSize: "16px", fontWeight: 800, color: "var(--foreground)", margin: 0 }}>{formatVolume(totalVolume)} HSK</p>
         </div>
         <div className="main-card" style={{ padding: "16px" }}>
-          <h4 className="label-caps" style={{ color: "var(--accent)", marginBottom: "4px", margin: 0 }}>Open Levels</h4>
+          <h4 className="label-caps" style={{ color: "var(--accent)", marginBottom: "4px", margin: 0 }}>Shielded Orders</h4>
           <p style={{ fontSize: "16px", fontWeight: 800, color: "var(--primary)", margin: 0 }}>{depth.bids + depth.asks}</p>
         </div>
       </div>
